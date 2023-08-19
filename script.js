@@ -13,7 +13,7 @@ let animateSwitch = false;
 
 animateButton.addEventListener("click", () => {
     animateSwitch = !animateSwitch;
-    animate(75)
+    animate(50)
    
 })
 
@@ -82,14 +82,12 @@ const createNewGrid = function() {
 
 // generate hover event listener. also removes eventlisteners before adding them
 const createHover = function () {
-    console.log("createhover-run")
-    console.log(gridElements)
-   removeEventListeners();
-   if (randomColor == false) {
-    console.log("false")
+    removeEventListeners();
+    if (randomColor == false) {
     gridElements.forEach(element => {
     element.addEventListener("mouseover", applyBlack)
-})} else {
+})}
+    else {
     console.log("true")
     gridElements.forEach(element => {
     element.addEventListener("mouseover", applyColor)
@@ -123,15 +121,14 @@ const removeChilds = function () { // removes the child before creating a new gr
 };
 
 const removeEventListeners = () => {
-    console.log("remove")
+    
     gridElements.forEach(element => {
         
         if (randomColor === false){
-            console.log("colorfalse")
             element.removeEventListener("mouseover", applyColor)}
          else if (randomColor === true){      
-            console.log("colortrue")
-        element.removeEventListener("mouseover", applyBlack)}
+
+            element.removeEventListener("mouseover", applyBlack)}
     });
 };
 
@@ -195,20 +192,60 @@ function animate (num) {
             removeChilds()
             grid(i)
             animateColor()
-        },  100 * i )
+        },  150 * i )
         
     }
-
     createHover()
+    
+}
+
+function showInfo2 () {
+const odinProjectCom = document.querySelector(".info2")
+setTimeout( () =>{
+    odinProjectCom.classList.remove("hide")
+    odinProjectCom.classList.add("show")
+}, 10000)
+setTimeout( () =>{
+    odinProjectCom.classList.remove("show")
+    odinProjectCom.classList.add("hide")
+}, 15000)
+}
+
+function showInfo (){
+    const etchASketch = document.querySelector(".info")
+setTimeout( () =>{
+    etchASketch.classList.remove("hide")
+    etchASketch.classList.add("show")
+}, 50)
 }
 
 
+// animates the clickME button
+let interval 
+function clickMeAnimation () {
+ interval = setInterval(()=> {
+    red =  Math.floor(Math.random() * 256 );
+    green = Math.floor(Math.random() * 256 );
+    blue = Math.floor(Math.random() * 256 );
+    animateButton.style.backgroundColor = `rgb(${red}, ${green}, ${blue})`
+   }, 100)
+
+}
+// stops the animations and adds click more to button text.
+animateButton.addEventListener("click", () =>{
+    clearInterval(interval)
+    animateButton.style.backgroundColor = "ghostwhite";
+    animateButton.textContent = "click more"
+})
 
 
 
-
+clickMeAnimation() // starts the clickeme animation on the button
 grid(25) //creates initial grid
 createHover() // and hover
+showInfo() // shows and animates the title ecth a sketch. should have called showTitle()
+showInfo2() // shows and aniamtes "this is odinproject.com project"
+
 
 
 

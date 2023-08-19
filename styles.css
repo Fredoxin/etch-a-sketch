@@ -10,18 +10,24 @@ body {
 }
 
 .animateButton {
-    margin-left: 500px;
+   
+  
+    
+    margin-left: auto ;
    margin-top: 5px;
    margin-right: 5px;
-    height: 40px;
+   margin-bottom: 5px;
+   
+   height: 40px;
     width: 100px;
+    background-color: red;
    
 }
 
 .buttonContainer{
     display: flex;
-    background-color: aquamarine;
     width: 960px;
+    height: 100px;
     margin-left: auto;
     margin-right: auto;
     
@@ -33,9 +39,10 @@ body {
 .button {
 
     margin: 5px;
-    
+    background-color: none;
     height: 40px;
     width: 100px;
+    background-color: ghostwhite;
     
 }
 
@@ -45,7 +52,7 @@ body {
     height: 960px;
     width: 960px;
     margin: auto;
-    
+    box-shadow: 0px 0px 30px rgba(0,0,0, 0.8);
     background-color: ghostwhite;
     
     
@@ -66,34 +73,38 @@ body {
     
 } 
 
-elementStylingBordersOff {
 
-    border: none;
-
-}
 
 
 .info {
 
     font-family: Verdana, Geneva, Tahoma, sans-serif;
     font-size: 50px;
-    opacity: 0.8;
+    
     writing-mode: vertical-lr;
-   position: absolute;
-   top: 1%;
-   left: 1%;
+    position: absolute;
+    right: 78%;
+    top: 3%;
+    left: 19%;
+    transition: 7s ease;
+    letter-spacing: 40px;
 }
 
 .info2 {
 
     font-family: Verdana, Geneva, Tahoma, sans-serif;
-    font-size: 20px;
-    opacity: 0.9;
+    font-size: 30px;
+    
    /* writing-mode: vertical-lr;*/
    position: absolute;
-   right: 02%;
-   top: 20%;
+   right: 2%;
+   top: 5%;
+   letter-spacing: 4px;
+   transition: 5s;
+   opacity: 0.1;
 }
+
+
 
 .clickMe{
  
@@ -106,3 +117,15 @@ elementStylingBordersOff {
     right: 15%;   
     }
 
+.hide {
+    opacity: 0;
+    
+    letter-spacing: 4px;
+
+}
+
+ .show {
+
+    opacity: 0.7;
+
+}
