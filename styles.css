@@ -6,12 +6,13 @@
 body {
     display: flex;
     flex-direction: column;
-    background-color: lightblue ;
+    background-color:ghostwhite ;
 }
 
 .animateButton {
-    margin-left: auto;
-   
+    margin-left: 500px;
+   margin-top: 5px;
+   margin-right: 5px;
     height: 40px;
     width: 100px;
    
@@ -19,19 +20,18 @@ body {
 
 .buttonContainer{
     display: flex;
-    
+    background-color: aquamarine;
     width: 960px;
     margin-left: auto;
     margin-right: auto;
-    background-color: red;
+    
    
     
     margin-top: 5px;
 } 
 
 .button {
-    
-    
+
     margin: 5px;
     
     height: 40px;
@@ -46,6 +46,11 @@ body {
     width: 960px;
     margin: auto;
     
+    background-color: ghostwhite;
+    
+    
+    
+    
    
    
 }
@@ -54,19 +59,50 @@ body {
 .elementStyling {
     
     
-    border: solid 1px;
+    border: solid 0.5px;
     
     
     
     
 } 
 
+elementStylingBordersOff {
+
+    border: none;
+
+}
 
 
-/*
+.info {
 
-.elementStyling:hover {
-    transition: 1ms;
-    background-color: black;
-    
-}*/
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    font-size: 50px;
+    opacity: 0.8;
+    writing-mode: vertical-lr;
+   position: absolute;
+   top: 1%;
+   left: 1%;
+}
+
+.info2 {
+
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    font-size: 20px;
+    opacity: 0.9;
+   /* writing-mode: vertical-lr;*/
+   position: absolute;
+   right: 02%;
+   top: 20%;
+}
+
+.clickMe{
+ 
+
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    font-size: 20px;
+    opacity: 0.8;    
+    position: absolute;
+    bottom: 5%;
+    right: 15%;   
+    }
+

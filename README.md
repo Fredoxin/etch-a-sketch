@@ -7,3 +7,15 @@ Atm the hover effect applies a random rgb color value to each element.
 
 
 Still trying to figure out a darkening effect which darkens the element on every interaction.
+
+
+
+remember arrow function and function expression behave differently with events.
+
+like this:  The function runs on click.
+
+ clearGridButton.addEventListener("click", ()=> {
+    clearGrid()
+});
+
+If you use a function expression or decleration you first have to invoke the function to attach the listener.
