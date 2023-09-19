@@ -1,6 +1,6 @@
 const gridElements =  [];
 const totalGridDimension = 960;
-const container = document.querySelector(".grid")
+const gridContainer = document.querySelector(".gridContainer")
 const createGridButton = document.querySelector(".createGridButton");
 const clearGridButton = document.querySelector(".clearGridButton");
 const randomColorButton = document.querySelector(".randomColorsButton");
@@ -9,7 +9,7 @@ const animateButton = document.querySelector(".animateButton")
 let borderSwitchOn = true;
 let randomColor = false;
 let animateSwitch = false;
-let isMouseDown = false;
+let drawing = false;
 
 
 animateButton.addEventListener("click", () => {
@@ -24,6 +24,119 @@ bordersButton.addEventListener("click", () =>{
     bordersOffOn()
 })
 
+//clears the grid
+ clearGridButton.addEventListener("click", ()=> {
+    clearGrid()
+});
+
+//generates new grid when button clicked
+createGridButton.addEventListener("click", ()=> {
+    createNewGrid();
+   // createHover();
+});
+
+//activates randomly generated rgb values on hover.
+randomColorButton.addEventListener("click", ()=>{
+    randomColor = !randomColor;
+    if(!randomColor){
+        randomColorButton.style.backgroundColor = "ghostwhite"} // shows that the button is unclicked   
+    else {
+        randomColorButton.style.backgroundColor = "rgba(0,0,0, 0.6)"} // shows button is clicked. 
+   //createHover()
+})
+
+
+gridContainer.addEventListener("mousedown", function() {
+    drawing = true;
+});
+
+gridContainer.addEventListener("mouseup", function() {
+    drawing = false;
+});
+
+gridContainer.addEventListener("mousemove", function(e) {
+    if(drawing && !randomColor){
+        applyBlack(e)
+    }
+    else if(drawing && randomColor){
+        console.log(e)
+        applyColor(e)
+    }
+});
+
+function applyBlack(e) {  //Event handler
+    if (e.altKey){return}
+    else{e.target.style.backgroundColor = "black"};
+}
+
+function applyColor(e) { // event handler
+    if (e.altKey){return}
+    else {
+        const red =  Math.floor(Math.random() * 256);
+        const green = Math.floor(Math.random() * 256);
+        const blue = Math.floor(Math.random() * 256);
+ 
+    e.target.style.backgroundColor = `rgb(${red}, ${green}, ${blue})`;
+}}
+
+
+
+
+//calculates and sets the grid elements dimensions in a predefined, fixed sized, container
+function calcElementDimension(num) {
+
+    let dimension = totalGridDimension / num;
+    dimension = dimension.toString() + "px";
+    gridElements.forEach(element  => {
+        element.style.width = dimension;
+        element.style.height = dimension;
+    })
+    };    
+
+// creates the grid
+function grid(num){
+
+    for (let i = 0; i < num * num; i++) {
+
+        const gridElement = document.createElement("div");
+        gridElements.push(gridElement)
+        gridElement.classList.add("elementStyling");
+        gridContainer.appendChild(gridElement);
+        
+    }; 
+    calcElementDimension(num);
+};
+
+
+// creates new grid when button clicked and input given
+function createNewGrid() {
+    let userInput = prompt("Enter a number between 1 and 100");  
+    removeChilds();
+    if (userInput < 0 || userInput > 100) {
+        alert("Pleaser enter a number between 1 - 100");
+        grid(25);
+    } else{
+       return grid(userInput)
+    };  
+};
+////////////////////////////////////////////////////
+function removeChilds() { // removes the child before creating a new grid
+    
+    gridElements.forEach(element  => {
+        gridContainer.removeChild(element)
+    })
+    gridElements.length = 0; // to reset the nodelist array
+};
+
+////////////////////////////////////////////////////
+function clearGrid() { // clears the grid // invoked in clear grid button event listener
+   
+    gridElements.forEach(element => {
+        element.style.backgroundColor = "ghostwhite";
+    })
+}
+
+////////////////////////////////////////////////////
 function bordersOffOn() { // sets the borders OFF or ON
      
     if(!borderSwitchOn) {
@@ -41,134 +154,8 @@ function bordersOffOn() { // sets the borders OFF or ON
     }
 }
 
-//clears the grid
- clearGridButton.addEventListener("click", ()=> {
-    clearGrid()
-});
-
-//generates new grid when button clicked
-createGridButton.addEventListener("click", ()=> {
-    createNewGrid();
-    createHover();
-});
-
-//activates randomly generated rgb values on hover.
-randomColorButton.addEventListener("click", ()=>{
-    randomColor = !randomColor;
-    if(!randomColor){
-        randomColorButton.style.backgroundColor = "ghostwhite"} // shows that the button is unclicked   
-    else {
-        randomColorButton.style.backgroundColor = "rgba(0,0,0, 0.6)"} // shows button is clicked. 
-    createHover()
-})
-
-//calculates and sets the grid elements dimensions in a predefined, fixed sized, container
-const calcElementDimension = function (num) {
-
-    let dimension = totalGridDimension / num;
-    dimension = dimension.toString() + "px";
-    gridElements.forEach(element  => {
-        element.style.width = dimension;
-        element.style.height = dimension;
-    })
-    };    
-
-// creates the grid
-const grid = function (num){
-
-    for (let i = 0; i < num * num; i++) {
-        const container =  document.querySelector(".grid")
-        const gridElement = document.createElement("div");
-        gridElements.push(gridElement)
-        gridElement.classList.add("elementStyling");
-        container.appendChild(gridElement);
-        
-    }; 
-
-    calcElementDimension(num);
-};
-
-
-// creates new grid when button clicked and input given
-const createNewGrid = function() {
-    let userInput = prompt("Enter a number between 1 and 100");  
-    removeChilds();
-    if (userInput < 0 || userInput > 100) {
-        alert("Pleaser enter a number between 1 - 100");
-        grid(25);
-    } else{
-       return grid(userInput)
-    };  
-};
-
-// generate hover event listener. also removes eventlisteners before adding them
-const createHover = function() {
-    removeEventListeners();
-    if (!randomColor) {
-       
-     //  randomColorButtonClicked()
-        gridElements.forEach(element => {
-        
-        element.addEventListener("mousedown", applyBlack)
-    })}
-    else {
-      //  randomColorButtonClicked()
-        gridElements.forEach(element => {
-        element.addEventListener("mousedown", applyColor)
-        })
-    }}
-
-const applyBlack = (event) => {  //Event handler
-    if (event.altKey){return}
-    
-    else{event.target.style.backgroundColor = "black"};
-}
-
-const applyColor = function (event) { // event handler
-    if (event.altKey){return}
-    else {
-        const red =  Math.floor(Math.random() * 256);
-        const green = Math.floor(Math.random() * 256);
-        const blue = Math.floor(Math.random() * 256);
- 
-    event.target.style.backgroundColor = `rgb(${red}, ${green}, ${blue})`;
-}}
-
-
-const removeChilds = function () { // removes the child before creating a new grid
-    
-    gridElements.forEach(element  => {
-        container.removeChild(element)
-    })
-
-    gridElements.length = 0; // to reset the nodelist array
-};
-
-const removeEventListeners = () => {
-    
-    gridElements.forEach(element => {
-        
-        if (randomColor === false){
-            element.removeEventListener("mousedown", applyColor)}
-         else if (randomColor === true){      
-
-            element.removeEventListener("mousedown", applyBlack)}
-    });
-};
-
-
-function clearGrid () {
-   
-    gridElements.forEach(element => {
-        element.style.backgroundColor = "ghostwhite";
-    })
-}
-
-
-
-
-
-const animateColor = function () { 
+// creates random colors for the animation
+function animateColor() { 
      red =  Math.floor(Math.random() * 256 * 1.6);
      green = Math.floor(Math.random() * 256 * 1.6);
      blue = Math.floor(Math.random() * 256 * 1.6);
@@ -181,21 +168,18 @@ const animateColor = function () {
  
 
 
-
-function animate (num) {
+// creates a crazy animation
+function animate(num) {
     removeChilds()
-    for(let i=0; i < num; i++) {
-        
+    for(let i=0; i < num; i++) {    
         setTimeout(() => {
             removeChilds()
             grid(i)
             animateColor()
-        },  150 * i )
-        
+        },  150 * i )     
     }
-    createHover();
-    
-}
+    createHover();  
+};
 
 function showInfo2 () {
 const odinProjectCom = document.querySelector(".info")
@@ -207,7 +191,7 @@ setTimeout( () =>{
     odinProjectCom.classList.remove("show")
     odinProjectCom.classList.add("hide")
 }, 10000)
-}
+};
 
 function showTitle (){
     const etchASketch = document.querySelector(".title")
@@ -215,7 +199,7 @@ setTimeout( () =>{
     etchASketch.classList.remove("hide")
     etchASketch.classList.add("show")
 }, 50)
-}
+};
 
 
 // animates the clickME button
@@ -240,9 +224,9 @@ animateButton.addEventListener("click", () =>{
 
 clickMeAnimation() // starts the clickeme animation on the button
 grid(25) //creates initial grid
-createHover() // and hover
+//createHover() // and hover
 showTitle() // shows and animates the title ecth a sketch. should have called showTitle()
-showInfo2() // shows and aniamtes "this is odinproject.com project"
+showInfo2() // shows and aniamtes "this is odinproject.com project" 
 
 
 
