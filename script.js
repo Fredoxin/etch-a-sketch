@@ -1,27 +1,45 @@
-
 const gridElements =  [];
 const totalGridDimension = 960;
+const container = document.querySelector(".grid")
 const createGridButton = document.querySelector(".createGridButton");
 const clearGridButton = document.querySelector(".clearGridButton");
 const randomColorButton = document.querySelector(".randomColorsButton");
-const bordersOffButton = document.querySelector(".borderSwitchButton");
+const bordersButton = document.querySelector(".borderSwitchButton");
 const animateButton = document.querySelector(".animateButton")
-let borderSwith = false;
+let borderSwitchOn = true;
 let randomColor = false;
 let animateSwitch = false;
+let isMouseDown = false;
 
 
 animateButton.addEventListener("click", () => {
     animateSwitch = !animateSwitch;
-    animate(50)
+    animate(30)
    
 })
 
-//clears borders
-bordersOffButton.addEventListener("click", () =>{
-    borderSwith = !borderSwith;  
-    bordersOFF()
+//clears borders on click or activates them if they are off.
+bordersButton.addEventListener("click", () =>{
+    borderSwitchOn = !borderSwitchOn;  
+    bordersOffOn()
 })
+
+function bordersOffOn() { // sets the borders OFF or ON
+     
+    if(!borderSwitchOn) {
+     
+    gridElements.forEach(element => {
+        element.style.border = "none";
+        bordersButton.textContent = "bordersOFF";
+    })} else{
+
+        gridElements.forEach(element => {
+            element.style.border = "0.5px solid";
+            bordersButton.textContent = "bordersON"
+
+        })    
+    }
+}
 
 //clears the grid
  clearGridButton.addEventListener("click", ()=> {
@@ -34,9 +52,13 @@ createGridButton.addEventListener("click", ()=> {
     createHover();
 });
 
-//activates randomly generated rgb value on hover.
+//activates randomly generated rgb values on hover.
 randomColorButton.addEventListener("click", ()=>{
     randomColor = !randomColor;
+    if(!randomColor){
+        randomColorButton.style.backgroundColor = "ghostwhite"} // shows that the button is unclicked   
+    else {
+        randomColorButton.style.backgroundColor = "rgba(0,0,0, 0.6)"} // shows button is clicked. 
     createHover()
 })
 
@@ -62,10 +84,9 @@ const grid = function (num){
         container.appendChild(gridElement);
         
     }; 
+
     calcElementDimension(num);
 };
-
-
 
 
 // creates new grid when button clicked and input given
@@ -73,26 +94,29 @@ const createNewGrid = function() {
     let userInput = prompt("Enter a number between 1 and 100");  
     removeChilds();
     if (userInput < 0 || userInput > 100) {
-        alert("Pleaser enter a number between 1 - 100")
-        userInput = 10;
+        alert("Pleaser enter a number between 1 - 100");
+        grid(25);
     } else{
        return grid(userInput)
     };  
 };
 
 // generate hover event listener. also removes eventlisteners before adding them
-const createHover = function () {
+const createHover = function() {
     removeEventListeners();
-    if (randomColor == false) {
-    gridElements.forEach(element => {
-    element.addEventListener("mouseover", applyBlack)
-})}
+    if (!randomColor) {
+       
+     //  randomColorButtonClicked()
+        gridElements.forEach(element => {
+        
+        element.addEventListener("mousedown", applyBlack)
+    })}
     else {
-    console.log("true")
-    gridElements.forEach(element => {
-    element.addEventListener("mouseover", applyColor)
-    })
-}}
+      //  randomColorButtonClicked()
+        gridElements.forEach(element => {
+        element.addEventListener("mousedown", applyColor)
+        })
+    }}
 
 const applyBlack = (event) => {  //Event handler
     if (event.altKey){return}
@@ -112,12 +136,12 @@ const applyColor = function (event) { // event handler
 
 
 const removeChilds = function () { // removes the child before creating a new grid
-    const container =  document.querySelector(".grid")
+    
     gridElements.forEach(element  => {
         container.removeChild(element)
     })
-    gridElements.length = 0; // to reset the nodelist array, otherwise I get a conflict between DOM and this array which do not really understand. but it makes sense.
 
+    gridElements.length = 0; // to reset the nodelist array
 };
 
 const removeEventListeners = () => {
@@ -125,49 +149,23 @@ const removeEventListeners = () => {
     gridElements.forEach(element => {
         
         if (randomColor === false){
-            element.removeEventListener("mouseover", applyColor)}
+            element.removeEventListener("mousedown", applyColor)}
          else if (randomColor === true){      
 
-            element.removeEventListener("mouseover", applyBlack)}
+            element.removeEventListener("mousedown", applyBlack)}
     });
 };
 
 
 function clearGrid () {
-    console.log("click")
+   
     gridElements.forEach(element => {
         element.style.backgroundColor = "ghostwhite";
     })
 }
 
 
-function bordersOFF () {
-     
-    if(borderSwith) {
-      
-    gridElements.forEach(element => {
-        element.style.border = "none";
-    })} else{
-        gridElements.forEach(element => {
-            element.style.border = "0.5px solid";
-        })
-         
-    }
-}
-/*
-function animationGrid (num) {
-    
-    for (let i = 0; i < num * num; i++) {
-        const container =  document.querySelector(".grid")
-        const gridElement = document.createElement("div");
-        gridElements.push(gridElement)
-        gridElement.classList.add("elementStyling");
-        container.appendChild(gridElement);
-        
-    }; 
-    calcElementDimension(num);
 
-}*/
 
 
 const animateColor = function () { 
@@ -195,24 +193,24 @@ function animate (num) {
         },  150 * i )
         
     }
-    createHover()
+    createHover();
     
 }
 
 function showInfo2 () {
-const odinProjectCom = document.querySelector(".info2")
+const odinProjectCom = document.querySelector(".info")
 setTimeout( () =>{
     odinProjectCom.classList.remove("hide")
     odinProjectCom.classList.add("show")
-}, 10000)
+}, 5000)
 setTimeout( () =>{
     odinProjectCom.classList.remove("show")
     odinProjectCom.classList.add("hide")
-}, 15000)
+}, 10000)
 }
 
-function showInfo (){
-    const etchASketch = document.querySelector(".info")
+function showTitle (){
+    const etchASketch = document.querySelector(".title")
 setTimeout( () =>{
     etchASketch.classList.remove("hide")
     etchASketch.classList.add("show")
@@ -243,7 +241,7 @@ animateButton.addEventListener("click", () =>{
 clickMeAnimation() // starts the clickeme animation on the button
 grid(25) //creates initial grid
 createHover() // and hover
-showInfo() // shows and animates the title ecth a sketch. should have called showTitle()
+showTitle() // shows and animates the title ecth a sketch. should have called showTitle()
 showInfo2() // shows and aniamtes "this is odinproject.com project"
 
 
