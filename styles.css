@@ -76,7 +76,7 @@ body {
 
 
 
-.info {
+.title {
 
     font-family: Verdana, Geneva, Tahoma, sans-serif;
     font-size: 50px;
@@ -86,11 +86,11 @@ body {
     right: 78%;
     top: 3%;
     left: 19%;
-    transition: 7s ease;
+    transition: 3s ease;
     letter-spacing: 40px;
 }
 
-.info2 {
+.info {
 
     font-family: Verdana, Geneva, Tahoma, sans-serif;
     font-size: 30px;
