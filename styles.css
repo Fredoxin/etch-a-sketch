@@ -27,7 +27,7 @@ body {
 .buttonContainer{
     display: flex;
     width: 960px;
-    height: 100px;
+    height: 50px;
     margin-left: auto;
     margin-right: auto;
     
@@ -46,7 +46,7 @@ body {
     
 }
 
-.grid {
+.gridContainer {
     display: flex;
     flex-wrap: wrap;
     height: 960px;
@@ -64,13 +64,7 @@ body {
 
 
 .elementStyling {
-    
-    
     border: solid 0.5px;
-    
-    
-    
-    
 } 
 
 
